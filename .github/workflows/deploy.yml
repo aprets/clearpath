@@ -29,15 +29,16 @@ jobs:
     - name: Authorize Docker push
       run: gcloud auth configure-docker
 
-
-    - name: Build and push
+    - name: Build
       uses: docker/build-push-action@v3
       with:
         context: .
-        push: true
         tags: eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+
+    - name: Push Container
+      run: docker push eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
 
     - name: Deploy to Cloud Run
       id: deploy
