@@ -1,0 +1,51 @@
+name: Prod deploy
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: clearpathcloud
+  SERVICE: main
+  REGION: europe-west2
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Setup Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+        export_default_credentials: true  # Set to true to authenticate the Cloud Run action
+
+    - name: Authorize Docker push
+      run: gcloud auth configure-docker
+
+
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: true
+        tags: eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Deploy to Cloud Run
+      id: deploy
+      uses: google-github-actions/deploy-cloudrun@v0
+      with:
+        service: ${{ env.SERVICE }}
+        image: eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
+        region: ${{ env.REGION }}
+
+    - name: Show Output
+      run: echo ${{ steps.deploy.outputs.url }}
