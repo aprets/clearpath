@@ -28,17 +28,13 @@ jobs:
 
     - name: Authorize Docker push
       run: gcloud auth configure-docker
+  
+    - uses: satackey/action-docker-layer-caching@v0.0.11
 
-    - name: Build
-      uses: docker/build-push-action@v3
-      with:
-        context: .
-        tags: eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-
-    - name: Push Container
-      run: docker push eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
+    - name: Build and Push Container
+      run: |-
+        docker build -t eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
+        docker push eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
 
     - name: Deploy to Cloud Run
       id: deploy
