@@ -4,7 +4,7 @@ import {getAuth, signInWithEmailAndPassword, signOut, User} from 'firebase/auth'
 import {showNotification} from '@mantine/notifications'
 import {useCollection} from 'react-firebase-hooks/firestore'
 import {collection, doc, getFirestore, query, where, updateDoc, increment} from 'firebase/firestore'
-import {Order} from '../lib/types/ordering'
+import {Order} from '../lib/types/example'
 
 const statusMessages = [
 	'Processing Payment',

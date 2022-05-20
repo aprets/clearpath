@@ -2,12 +2,13 @@ import {AppProps} from 'next/app'
 import Head from 'next/head'
 import {MantineProvider} from '@mantine/core'
 import {NotificationsProvider} from '@mantine/notifications'
+import {ModalsProvider} from '@mantine/modals'
 import Navbar from '../components/Navbar'
-import {theme} from '../lib/theme'
 
 import '../global.css'
 import '../lib/firebase'
 import {useStoreHydrate} from '../lib/store/storage'
+import GateKeeper from '../components/GateKeeper'
 
 export default function App(props: AppProps) {
 	const {Component, pageProps} = props
@@ -24,11 +25,14 @@ export default function App(props: AppProps) {
 			<MantineProvider
 				withGlobalStyles
 				withNormalizeCSS
-				theme={theme}
 			>
-				<NotificationsProvider position='bottom-left'>
-					<Navbar />
-					<Component {...pageProps} />
+				<NotificationsProvider position='top-right'>
+					<ModalsProvider>
+						<Navbar />
+						<GateKeeper>
+							<Component {...pageProps} />
+						</GateKeeper>
+					</ModalsProvider>
 				</NotificationsProvider>
 			</MantineProvider>
 		</>

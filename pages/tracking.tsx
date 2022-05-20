@@ -7,7 +7,7 @@ import {GrNotes} from 'react-icons/gr'
 import {GiCook, GiDeliveryDrone} from 'react-icons/gi'
 import {IoFastFoodSharp} from 'react-icons/io5'
 import {ReactNode} from 'react'
-import {Order} from '../lib/types/ordering'
+import {Order} from '../lib/types/example'
 
 function StatusText({children}: {children: ReactNode}) {
 	return (
