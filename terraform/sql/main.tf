@@ -55,7 +55,3 @@ output "password" {
   sensitive = true
   value = google_sql_user.users.password
 }
-
-# output "adios" {
-#   value = "Bye, ${var.name}"
-# }
