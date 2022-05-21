@@ -1,7 +1,8 @@
 name: Export Test
 
 on:
-  pull_request
+  push:
+  workflow_dispatch:
 
 jobs:
   job:
