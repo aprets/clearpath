@@ -1,4 +1,4 @@
-import {Button, Text, Container, Modal, Group, Stack, Blockquote, Divider, Grid, Input, SimpleGrid, Card, ThemeIcon, Center} from '@mantine/core'
+import {Button, Text, Container, Modal, Group, Stack, Blockquote, Divider, Grid, Input, SimpleGrid, Card, ThemeIcon, Center, Box} from '@mantine/core'
 import {useState} from 'react'
 
 import {WorkflowModal} from '../components/Workflows/Modal'
@@ -7,7 +7,7 @@ import {Workflow, workflows} from '../lib/workflows'
 function WorkflowCard(workflow: Workflow) {
 	const [opened, setOpened] = useState(false)
 	return (
-		<Card key={workflow.slug} shadow='sm' p='lg' withBorder>
+		<Card key={workflow.slug} shadow='sm' p='lg' withBorder sx={{display: 'flex', flexDirection: 'column'}}>
 			<Card.Section mt={8}>
 				<Center>
 					<ThemeIcon sx={{width: '30%', height: 'auto'}}>
@@ -21,9 +21,11 @@ function WorkflowCard(workflow: Workflow) {
 
 			<WorkflowModal opened={opened} setOpened={setOpened} type={workflow.slug} redirectOnSubmit />
 
-			<Button variant='light' fullWidth mt={14} onClick={() => setOpened(true)}>
-				Deploy
-			</Button>
+			<Box mt='auto'>
+				<Button variant='light' fullWidth mt={14} onClick={() => setOpened(true)}>
+					Deploy
+				</Button>
+			</Box>
 		</Card>
 	)
 }

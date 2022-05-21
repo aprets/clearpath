@@ -33,6 +33,28 @@ export const runStatusToMantineColor: {[key in RunStatus]: DefaultMantineColor} 
 	force_canceled: 'red',
 }
 
+export const runStatusToTimelineIndex: {[key in RunStatus]: 0 | 1 | 2 | 3} = {
+	pending: 0,
+	plan_queued: 0,
+	planning: 1,
+	planned: 2,
+	cost_estimating: 2,
+	cost_estimated: 2,
+	policy_checking: 2,
+	policy_override: 2,
+	policy_soft_failed: 2,
+	policy_checked: 2,
+	confirmed: 2,
+	planned_and_finished: 3,
+	apply_queued: 2,
+	applying: 2,
+	applied: 3,
+	discarded: 3,
+	errored: 3,
+	canceled: 3,
+	force_canceled: 3,
+}
+
 // export const workspaceStateToHelpText: {[key in WorkspaceState]: string} = {
 // 	new: 'The workspace has been created and configured. All the variables have been set. '
 // 		+ 'It is now ready for deployment. To deploy the infrastructure and apply changes to Google Cloud please press the "Deploy" button.',

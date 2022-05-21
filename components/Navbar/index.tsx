@@ -10,6 +10,7 @@ export default function Navbar() {
 		<HeaderMiddle
 			links={user ? [
 				{label: 'Dashboard', link: '/'},
+				{label: 'Settings', link: '#'},
 			] : []}
 			cta={user && (
 				<Button radius='xl' variant='outline' sx={{height: 30}} onClick={() => { signOut(auth) }}>

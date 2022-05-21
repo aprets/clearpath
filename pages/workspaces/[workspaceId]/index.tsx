@@ -7,64 +7,11 @@ import Link from 'next/link'
 import {useRouter} from 'next/router'
 import {ReactNode, useState} from 'react'
 import {useCollection, useCollectionData, useDocumentData} from 'react-firebase-hooks/firestore'
+import {objectGrid, openInNewWindow, Sensitive} from '../../../components/VarDisplay'
 import {WorkflowModal} from '../../../components/Workflows/Modal'
 import {Run, runStatusToMantineColor} from '../../../lib/run'
 import {snakeToTitle} from '../../../lib/text'
 import {Workspace, workspaceStateToApplyText, workspaceStateToHelpText, workspaceStateToLabel, workspaceStateToMantineColor} from '../../../lib/workspace'
-
-function Sensitive({children}: {children: string}) {
-	const clipboard = useClipboard({timeout: 10000})
-	const [opened, setOpened] = useState(false)
-	return (
-		<Popover
-			opened={opened}
-			onClose={() => setOpened(false)}
-			position='bottom'
-			placement='center'
-			withArrow
-			trapFocus={false}
-			closeOnEscape={false}
-			transition='pop-top-left'
-			styles={{body: {pointerEvents: 'none'}}}
-			target={(
-				<Text
-					component='span'
-					sx={{color: 'transparent', userSelect: 'none', backgroundColor: '#e8e8e8', cursor: 'pointer'}}
-					onClick={() => clipboard.copy(children)}
-					onMouseEnter={() => setOpened(true)}
-					onMouseLeave={() => {
-						setOpened(false)
-						setTimeout(() => clipboard.reset(), 300)
-					}}
-				>
-					{children}
-				</Text>
-			)}
-		>
-			{clipboard.copied ? 'Copied to clipboard!' : 'Click to copy to clipboard'}
-		</Popover>
-
-	)
-}
-
-// eslint-disable-next-line @typescript-eslint/comma-dangle
-const objectGrid = <T,>(item: T, renderer: (key: keyof T, value: T[keyof T]) => ReactNode) => (
-	<SimpleGrid
-		cols={4}
-		spacing='lg'
-		breakpoints={[
-			{maxWidth: 'md', cols: 3, spacing: 'md'},
-			{maxWidth: 'sm', cols: 2, spacing: 'sm'},
-			{maxWidth: 'xs', cols: 1, spacing: 'sm'},
-		]}
-		mb={8}
-	>
-		{item && Object.entries(item).map(([k, v]) => (
-			renderer(k as keyof T, v)
-		))}
-	</SimpleGrid>
-
-)
 
 export default function WorkspacePage() {
 	const router = useRouter()
@@ -167,9 +114,6 @@ export default function WorkspacePage() {
 					</Button>
 				</>
 			),
-
-			// onCancel: () => console.log('Cancel'),
-			// onConfirm: () => console.log('Confirmed'),
 		})
 	}
 
@@ -198,6 +142,25 @@ export default function WorkspacePage() {
 					<Badge color={workspaceStateToMantineColor[workspace.state]} size='lg' variant='filled'>{workspaceStateToLabel[workspace.state]}</Badge>
 				</Group>
 				<Group>
+					{workspace?.outputs?.shell_url && (
+						<Button
+							color='indigo'
+							onClick={openInNewWindow(workspace.outputs.shell_url as string)}
+						>
+							Open Shell
+						</Button>
+					)}
+					{workspace?.outputs?.url && (
+						<Button
+							component='a'
+							color='indigo'
+							href={workspace.outputs.url as string}
+							target='_blank'
+							rel='noreferrer'
+						>
+							Open URL
+						</Button>
+					)}
 					<Button
 						disabled={workspace.state === 'changing'}
 						onClick={() => { setEditOpened(true) }}
@@ -231,30 +194,14 @@ export default function WorkspacePage() {
 						These are the outputs of the infrastructure provisioning. Those usually include ip addresses, usernames
 						and any other useful details about the provisioned infrastructure.
 					</Alert>
-					{objectGrid(workspace.outputs, (k, v) => (
-						<Box key={k}>
-							<Text weight={500}>{snakeToTitle(k.toString())}</Text>
-							{(k === 'password' && (
-								<Sensitive>
-									{v.toString()}
-								</Sensitive>
-							)) || (
-								<Text>{v}</Text>
-							)}
-						</Box>
-					))}
+					{objectGrid(workspace.outputs)}
 
 				</Accordion.Item>
 				<Accordion.Item label='Variables'>
 					<Alert mb={5}>
 						You can change the variables by editing the workspace
 					</Alert>
-					{objectGrid(workspace.vars, (k, v) => (
-						<Box key={k}>
-							<Text weight={500}>{snakeToTitle(k.toString())}</Text>
-							<Text>{v}</Text>
-						</Box>
-					))}
+					{objectGrid(workspace.vars)}
 
 				</Accordion.Item>
 				<Accordion.Item label='Runs'>
