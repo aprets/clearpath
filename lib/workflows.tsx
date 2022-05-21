@@ -16,8 +16,6 @@ export interface Workflow {
 	form: (props) => ReactElement
 }
 
-const lorumIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac pellentesque ex, ut euismod tellus. Cras lobortis odio sit amet purus auctor luctus. Vivamus porta varius dui id fermentum. Donec non tincidunt mi, sed fermentum tellus. Suspendisse in scelerisque arcu, nec imperdiet magna. Integer suscipit facilisis ligula, id tempor ex tempor ut.'
-
 const regionOptions: SelectItem[] = [
 	{value: 'europe-west2', label: 'London, UK'},
 	{value: 'europe-west3', label: 'Frankfurt, DE'},

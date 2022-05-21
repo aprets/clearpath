@@ -7,13 +7,10 @@ import Navbar from '../components/Navbar'
 
 import '../global.css'
 import '../lib/firebase'
-import {useStoreHydrate} from '../lib/store/storage'
 import GateKeeper from '../components/GateKeeper'
 
 export default function App(props: AppProps) {
 	const {Component, pageProps} = props
-
-	useStoreHydrate()
 
 	return (
 		<>

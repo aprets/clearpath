@@ -27,17 +27,13 @@
     "axios": "^0.27.2",
     "firebase": "^9.6.11",
     "firebase-admin": "^10.2.0",
-    "immutable": "^4.0.0",
     "next": "12.1.0",
-    "next-plugin-preval": "^1.2.4",
     "prism-react-renderer": "^1.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-firebase-hooks": "^5.0.3",
     "react-icons": "^4.3.1",
     "tar": "^6.1.11",
-    "uuid": "^8.3.2",
-    "zustand": "^3.7.2"
   },
   "devDependencies": {
     "@mantine/eslint-config": "3.6.7",
