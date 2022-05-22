@@ -33,7 +33,7 @@
     "react-dom": "17.0.2",
     "react-firebase-hooks": "^5.0.3",
     "react-icons": "^4.3.1",
-    "tar": "^6.1.11",
+    "tar": "^6.1.11"
   },
   "devDependencies": {
     "@mantine/eslint-config": "3.6.7",
