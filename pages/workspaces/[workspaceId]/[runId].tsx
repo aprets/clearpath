@@ -1,4 +1,4 @@
-import {Button, Badge, Text, Title, Center, Alert, Loader, Container, Accordion, Group, Stack, Blockquote, Divider, Grid, Input, Card, Timeline, Box} from '@mantine/core'
+import {Button, Badge, Text, Title, Center, Alert, Loader, Container, Accordion, Group, Timeline} from '@mantine/core'
 import {doc, getFirestore} from 'firebase/firestore'
 import {useRouter} from 'next/router'
 import {useDocumentData} from 'react-firebase-hooks/firestore'

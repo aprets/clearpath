@@ -3,6 +3,7 @@ import {ReactElement, ReactNode} from 'react'
 import {IconType} from 'react-icons'
 import {VscDebugConsole} from 'react-icons/vsc'
 import {SiDocker, SiPostgresql, SiVirtualbox} from 'react-icons/si'
+// eslint-disable-next-line import/no-cycle
 import {makeForm} from '../components/Workflows/Form'
 
 export type WorkflowSlug = 'hello' | 'sql' | 'cloudrun' | 'vm'
@@ -179,7 +180,8 @@ export const workflows: Workflow[] = [
 		configurationMessage: (
 			<Text>
 				Please specify the configuration for the Cloud Run service to deploy. <br />
-				You can consult the <a href='https://cloud.google.com/run/docs' target='_blank' rel='noreferrer'>GCP Documentation</a> for detailed pricing, runtime and region information.
+				You can consult the <a href='https://cloud.google.com/run/docs' target='_blank' rel='noreferrer'>GCP Documentation</a>
+				for detailed pricing, runtime and region information.
 			</Text>
 		),
 		slug: 'cloudrun',

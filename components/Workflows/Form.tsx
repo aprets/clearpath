@@ -1,12 +1,13 @@
-import {Button, Title, Alert, Text, Container, Image, Group, Stack, Blockquote, Divider, Grid, Input, SimpleGrid, Card, ThemeIcon, Center, TextInput, Checkbox, Loader} from '@mantine/core'
+import {Button, Alert, Group, Center, TextInput, Loader} from '@mantine/core'
 import {useForm} from '@mantine/form'
 import {UseFormInput, UseFormReturnType} from '@mantine/form/lib/use-form'
-import {hideNotification, showNotification, updateNotification} from '@mantine/notifications'
-import {getFirestore, collection, addDoc, doc, getDoc, updateDoc} from 'firebase/firestore'
-import Link from 'next/link'
-import {Dispatch, ReactChild, SetStateAction, useEffect} from 'react'
+import {showNotification, updateNotification} from '@mantine/notifications'
+import {getFirestore, collection, addDoc, doc, updateDoc} from 'firebase/firestore'
+import {ReactChild, useEffect} from 'react'
 import {useDocumentDataOnce} from 'react-firebase-hooks/firestore'
-import {Workflow, WorkflowSlug} from '../../lib/workflows'
+// eslint-disable-next-line import/no-cycle
+import {WorkflowSlug} from '../../lib/workflows'
+// eslint-disable-next-line import/no-cycle
 import {Workspace} from '../../lib/workspace'
 
 interface FormConfig<V> {
@@ -35,6 +36,7 @@ export const makeForm = <V extends Workspace['vars']>(formConfig: FormConfig<V>)
 		validate: {
 			workspaceName: (value) => (/^[a-zA-Z-_0-9]*$/.test(value) ? null : 'Workspace must only contain characters, numbers, _ or -'),
 			...formConfig.validateVars,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} as any,
 	})
 
@@ -112,7 +114,7 @@ export const makeForm = <V extends Workspace['vars']>(formConfig: FormConfig<V>)
 				name: workspaceName,
 				state: 'new',
 				type: formConfig.slug,
-				vars: {...vars},
+				vars,
 			}
 
 			const workspace = await addDoc(

@@ -1,10 +1,5 @@
-import {Button, Text, Container, Image, Group, Stack, Blockquote, Divider, Grid, Input, Center, Loader, Paper, Badge, Title} from '@mantine/core'
-import {useRouter} from 'next/router'
+import {Button, Text, Container, Group, Center, Loader, Paper, Badge, Title} from '@mantine/core'
 
-import {useAuthState} from 'react-firebase-hooks/auth'
-import {getAuth, EmailAuthProvider, signInWithEmailAndPassword} from 'firebase/auth'
-import {useEffect, useRef} from 'react'
-import {showNotification} from '@mantine/notifications'
 import Link from 'next/link'
 import {useCollection} from 'react-firebase-hooks/firestore'
 import {collection, getFirestore} from 'firebase/firestore'

@@ -135,6 +135,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		},
 	})
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const run: AxiosResponse<TFRun> & {included?: any[]} = await terraform.client.get<TFRun>(`/runs/${createdRun.id}?include=plan%2Capply`)
 
 	const planLogUrl = run.included.filter((i) => i?.type === 'plans')?.[0]?.attributes?.logReadUrl

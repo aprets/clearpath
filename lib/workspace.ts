@@ -1,4 +1,5 @@
 import {DefaultMantineColor} from '@mantine/core'
+// eslint-disable-next-line import/no-cycle
 import {WorkflowSlug} from './workflows'
 
 export type WorkspaceState = 'new' | 'altered' | 'stable' | 'changing' | 'error'

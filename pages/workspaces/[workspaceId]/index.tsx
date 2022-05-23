@@ -1,13 +1,12 @@
-import {Button, SimpleGrid, Box, Text, Title, Center, Alert, Loader, Container, Image, Group, Stack, Blockquote, Divider, Grid, Input, Card, Accordion, Badge, AccordionState, Paper, Spoiler, Popover} from '@mantine/core'
-import {useClipboard} from '@mantine/hooks'
+import {Button, Text, Title, Center, Alert, Loader, Container, Group, Accordion, Badge, AccordionState, Paper} from '@mantine/core'
 import {useModals} from '@mantine/modals'
 import {hideNotification, showNotification, updateNotification} from '@mantine/notifications'
 import {collection, doc, getFirestore, orderBy, query} from 'firebase/firestore'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import {ReactNode, useState} from 'react'
-import {useCollection, useCollectionData, useDocumentData} from 'react-firebase-hooks/firestore'
-import {objectGrid, openInNewWindow, Sensitive} from '../../../components/VarDisplay'
+import {useState} from 'react'
+import {useCollection, useDocumentData} from 'react-firebase-hooks/firestore'
+import {objectGrid, openInNewWindow} from '../../../components/VarDisplay'
 import {WorkflowModal} from '../../../components/Workflows/Modal'
 import {Run, runStatusToMantineColor} from '../../../lib/run'
 import {snakeToTitle} from '../../../lib/text'
@@ -17,15 +16,17 @@ export default function WorkspacePage() {
 	const router = useRouter()
 	const {workspaceId: rawWorkspaceId} = router.query
 	const workspaceId = rawWorkspaceId.toString()
-	const [untypedWorkspace, loadingWorkspace, error] = useDocumentData(doc(getFirestore(), 'workspaces', (workspaceId ?? 'undefined').toString()))
+	const db = getFirestore()
+	const [untypedWorkspace, loadingWorkspace, error] = useDocumentData(doc(db, 'workspaces', workspaceId))
 	const workspace = untypedWorkspace as Workspace
 	const [runsSnapshot, loadingRuns] = useCollection(
 		query(
-			collection(getFirestore(), 'workspaces', (workspaceId ?? 'undefined').toString(), 'runs'),
+			collection(db, 'workspaces', workspaceId, 'runs'),
 			orderBy('timestamp', 'desc'),
 		),
 	)
 	const runs = runsSnapshot?.docs?.map((s) => ({id: s.id, ...s.data() as Run}))
+
 	const [editOpened, setEditOpened] = useState(false)
 	const modals = useModals()
 

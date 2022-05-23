@@ -1,8 +1,14 @@
 {
 	"cSpell.words": [
+		"appspot",
 		"clearpathcloud",
 		"cloudrun",
+		"firebaseapp",
+		"Firestore",
+		"gcloud",
 		"mantine",
+		"satackey",
+		"skorfmann",
 		"typecheck",
 		"zustand"
 	]

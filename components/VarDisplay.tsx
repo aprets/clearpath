@@ -1,6 +1,6 @@
 import {Box, Popover, SimpleGrid, Text} from '@mantine/core'
 import {useClipboard} from '@mantine/hooks'
-import {ReactNode, useState} from 'react'
+import {useState} from 'react'
 import {snakeToTitle} from '../lib/text'
 
 export function Sensitive({children}: {children: string}) {

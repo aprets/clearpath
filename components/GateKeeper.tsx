@@ -31,7 +31,6 @@ export default function GateKeeper({children}: {children: ReactElement}) {
 				ref={userRef}
 				type='text'
 				placeholder='Username'
-				defaultValue='user'
 				onKeyDown={(event) => {
 					if (event.key === 'Enter') login()
 				}}
@@ -41,7 +40,6 @@ export default function GateKeeper({children}: {children: ReactElement}) {
 				ref={passwordRef}
 				type='password'
 				placeholder='Password'
-				defaultValue='password'
 				onKeyDown={(event) => {
 					if (event.key === 'Enter') login()
 				}}
