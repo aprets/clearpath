@@ -1,14 +1,6 @@
 # 🌩️ ClearPath (Surrey CompSci 2022 FYP)
-### 🚀 Deployments
-The latest builds of the system are deployed at:
 
-Production build (main branch) - https://clearpathcloud.web.app/
-
-Testing credentials are:
-
-Username: `user`
-
-Password: `password`
+A streamlined infrastructure management platform on top of public cloud to improve DX
 
 # 👩‍💻 Getting Started with development
 
